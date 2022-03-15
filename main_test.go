@@ -15,7 +15,7 @@ type Config2 struct {
 }
 type Config3 struct {
 	X string `json:"x"`
-	Y int `json:"y"`
+	Y int    `json:"y"`
 }
 
 func Test1(t *testing.T) {
@@ -55,5 +55,12 @@ func Test3(t *testing.T) {
 	}
 	if config.Y != 456 {
 		t.Error()
+	}
+}
+func Test4(t *testing.T) {
+	var config Config3
+	err := ReadConfig("kek.json", &config)
+	if err == nil {
+		t.Error("No error on non-existing file")
 	}
 }
