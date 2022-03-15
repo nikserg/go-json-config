@@ -1,24 +1,12 @@
-package gojsonconfig
+package config
 
 import (
 	"encoding/json"
 	"os"
 )
 
-type Config struct {
-	AppId   int
-	AppHash string
-	Phone   string
-	Min     int
-}
-
-func ReadConfig() Config {
-	file, _ := os.Open("config.json")
+func ReadConfig(filename string, targetStruct interface{}) error {
+	file, _ := os.Open(filename)
 	defer file.Close()
-	config := Config{}
-	error := json.NewDecoder(file).Decode(&config)
-	if error != nil {
-		panic(error)
-	}
-	return config
+	return json.NewDecoder(file).Decode(targetStruct)
 }
